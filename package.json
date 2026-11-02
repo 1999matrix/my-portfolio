@@ -1,0 +1,16 @@
+{
+  "name": "shashwat-portfolio",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel --filter @portfolio/api --filter @portfolio/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "db:generate": "pnpm --filter @portfolio/api db:generate",
+    "db:migrate": "pnpm --filter @portfolio/api db:migrate",
+    "db:seed": "pnpm --filter @portfolio/api db:seed"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

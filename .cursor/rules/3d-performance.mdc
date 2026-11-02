@@ -1,0 +1,12 @@
+---
+description: React Three Fiber and animation performance rules
+globs: ["apps/web/**/*3d*/**", "apps/web/**/*Scene*.{js,jsx}", "apps/web/**/*canvas*/**"]
+alwaysApply: false
+---
+
+- Load the Canvas with next/dynamic (ssr: false) after first paint; show a poster image first.
+- Use instancing for repeated meshes, Draco/KTX2 for assets, no per-frame allocations, no setState in useFrame.
+- frameloop="demand" when the scene is static; pause when offscreen or tab hidden.
+- Use drei PerformanceMonitor to lower DPR and effects on weak devices.
+- Provide a static fallback for reduced motion, no WebGL and low power mode.
+- Keep the 3D chunk out of the initial bundle budget (170 KB gz) and verify with the bundle analyzer.

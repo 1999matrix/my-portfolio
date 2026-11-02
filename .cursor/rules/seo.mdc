@@ -1,0 +1,11 @@
+---
+description: SEO requirements for public pages
+globs: ["apps/web/app/**/*.{js,jsx}"]
+alwaysApply: false
+---
+
+- Every public page exports generateMetadata with title, description, canonical, OG and Twitter data.
+- One H1 per page, logical heading order, descriptive link text, alt text on every image.
+- Content must be present in server-rendered HTML. No client-only critical text.
+- Add JSON-LD for the page type. Keep sitemap.xml, robots.txt and llms.txt generated from the database.
+- Admin and API routes are noindex and disallowed in robots.txt.

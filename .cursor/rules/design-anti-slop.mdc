@@ -1,0 +1,14 @@
+---
+description: Visual design, copy and motion rules for all UI work
+globs: ["apps/web/**/*.{js,jsx,css}"]
+alwaysApply: false
+---
+
+- Before building UI, write a design plan: 4-6 named hex colors, type roles, layout concept, alignment. Then critique it for generic defaults and revise.
+- Banned: cream+serif+terracotta, black+single acid accent, purple-blue gradients, gradient text, blurred glow blobs, glassmorphism everywhere, identical rounded-card grids with one radius and one shadow.
+- Banned chrome: ALL-CAPS eyebrow above every heading, 01/02/03 on non-sequences, "A · B · C" meta strings, "WORD — fragment" labels, arrows on every link, single accented word in headlines.
+- Banned copy: "passionate", "crafting", "seamless", "cutting-edge", "leverage", "fast-paced world". Write plain specific copy using real numbers.
+- Structural devices (borders, dividers, numbering, labels) must encode real information.
+- Motion: one hero 3D moment and one scroll sequence. Elsewhere only motion that answers a user action. No fade-up on every section.
+- Always honor prefers-reduced-motion, pause offscreen canvases, cap DPR at 2.
+- Sentence case. CTAs name the exact action. Errors say what happened and how to fix it. Empty states invite an action.

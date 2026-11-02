@@ -1,0 +1,12 @@
+---
+description: Rules for the TypeScript API
+globs: ["apps/api/**/*.ts", "packages/shared/**/*.ts"]
+alwaysApply: false
+---
+
+- strict TypeScript, no any, no non-null assertions without a comment.
+- Zod schemas live in packages/shared and are the single source of truth for request/response types.
+- Controllers stay thin; logic in services; DB access in repositories.
+- Every endpoint: auth check, validation, rate limit where public, structured error shape, test.
+- Parameterized queries only. Never log secrets, tokens or message bodies.
+- Migrations are forward-only and committed with the schema change.

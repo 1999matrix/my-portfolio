@@ -1,0 +1,6 @@
+# Local Redis only — Postgres is Supabase (see .env.example).
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
