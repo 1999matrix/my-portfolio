@@ -5,6 +5,7 @@
     "dev": "pnpm --parallel --filter @portfolio/api --filter @portfolio/web dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
+    "test": "pnpm --filter @portfolio/api test",
     "db:generate": "pnpm --filter @portfolio/api db:generate",
     "db:migrate": "pnpm --filter @portfolio/api db:migrate",
     "db:seed": "pnpm --filter @portfolio/api db:seed"

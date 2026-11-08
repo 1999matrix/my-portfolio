@@ -1,5 +1,8 @@
+import dns from "node:dns";
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
+
+dns.setDefaultResultOrder("ipv4first");
 import * as schema from "./schema.js";
 
 let pool: pg.Pool | null = null;

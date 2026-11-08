@@ -1,10 +1,6 @@
-import "dotenv/config";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import dotenv from "dotenv";
+import { loadRootEnv } from "../config/load-root-env.js";
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(here, "../../../.env") });
+loadRootEnv(import.meta.url);
 
 import { sql } from "drizzle-orm";
 import { getDb, closeDb } from "../db/index.js";
@@ -19,6 +15,12 @@ import {
 
 /** Resume-backed seed — ids are stable on re-run via delete+insert pattern. */
 async function seed() {
+  if (!process.env.DATABASE_URL) {
+    throw new Error(
+      "DATABASE_URL is not set. Add it to the repo root .env (see .env.example).",
+    );
+  }
+
   const db = getDb();
 
   await db.execute(sql`TRUNCATE proof_metrics, skill_groups, achievements, projects, experience, profiles RESTART IDENTITY CASCADE`);

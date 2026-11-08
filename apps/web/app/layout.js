@@ -1,23 +1,33 @@
 import {
   IBM_Plex_Mono,
-  Libre_Franklin,
+  Instrument_Serif,
   Source_Sans_3,
 } from "next/font/google";
 import "./globals.css";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { AppProviders } from "@/components/shell/AppProviders.js";
+import { ThemeScript } from "@/components/shell/ThemeScript.js";
+import { getHomeContent } from "@/lib/content";
 
+/** OFL 1.1 — UI body */
 const source = Source_Sans_3({
   variable: "--font-source",
   subsets: ["latin"],
+  weight: ["400", "600"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
-const display = Libre_Franklin({
-  variable: "--font-display",
+/** OFL 1.1 — editorial display (Direction B guardrail) */
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
+/** OFL 1.1 — metadata / labels */
 const mono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
@@ -48,16 +58,28 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const { profile, experience } = await getHomeContent();
+  const primaryRole = experience[0]?.role;
+  const introLine = primaryRole
+    ? `${profile.location} · ${primaryRole}`
+    : profile.location;
+
   return (
-    <html lang="en" className={`${source.variable} ${display.variable} ${mono.variable} h-full`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${source.variable} ${instrument.variable} ${mono.variable} h-full`}
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-full flex flex-col">
-        <SiteHeader />
-        <div className="fixed bottom-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
-        <main className="flex-1">{children}</main>
-        <SiteFooter email="techshashwat5@gmail.com" />
+        <AppProviders introLine={introLine}>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter email="techshashwat5@gmail.com" />
+        </AppProviders>
       </body>
     </html>
   );

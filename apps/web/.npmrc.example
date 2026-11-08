@@ -1,0 +1,6 @@
+# Motion+ private registry — do not commit real tokens.
+# 1. Copy to apps/web/.npmrc (or repo root .npmrc)
+# 2. Replace MOTION_AUTH_TOKEN with your token from https://motion.dev/docs/react-motion-ui-installation
+#
+# @motionplus:registry=https://api.motion.dev/registry
+# //api.motion.dev/registry/:_authToken=${MOTION_AUTH_TOKEN}

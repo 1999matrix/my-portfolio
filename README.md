@@ -6,7 +6,9 @@ pnpm workspace: **apps/web** (Next.js), **apps/api** (Fastify + Drizzle), **pack
 
 1. Install [pnpm](https://pnpm.io) and Node 20+.
 2. Copy `.env.example` → `.env` at the repo root (and symlink or duplicate for `apps/api` — load via dotenv from root when running commands below).
-3. In [Supabase](https://supabase.com/dashboard/project/dubsiwxlyvijostbjxcp/settings/database), copy the **URI** connection string (pooler or direct) into `DATABASE_URL`.
+3. In [Supabase](https://supabase.com/dashboard/project/dubsiwxlyvijostbjxcp/settings/database), set `DATABASE_URL`:
+   - **Local migrate on Windows / no IPv6:** use **Connection pooling → Session mode → URI** (host `*.pooler.supabase.com`, user `postgres.<project-ref>`, port `5432`). Do not use `db.<ref>.supabase.co` if you see `ETIMEDOUT` on an IPv6 address.
+   - **Direct** `db.*:5432` is IPv6-only on many projects; it works only if your network has working IPv6.
 4. From repo root:
 
 ```bash

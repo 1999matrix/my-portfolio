@@ -1,12 +1,18 @@
-import Link from "next/link";
-import { NetworkHero } from "@/components/hero/NetworkHero";
-import { SkillKeyboard } from "@/components/SkillKeyboard";
-import {
-  ExperienceList,
-  ProjectStrip,
-  ProofStrip,
-} from "@/components/sections";
+import dynamic from "next/dynamic";
+import { HeroCopy } from "@/components/home/HeroCopy.js";
+import { DeferredNetworkHero } from "@/components/home/HomeDeferred.js";
+import { HeroShell } from "@/components/home/HeroShell.js";
+import { StaticGraph } from "@/components/hero/StaticGraph.js";
+import { ExperienceList, ProjectStrip } from "@/components/sections";
 import { getHomeContent } from "@/lib/content";
+
+const SkillKeyboard = dynamic(() =>
+  import("@/components/SkillKeyboard").then((mod) => mod.SkillKeyboard),
+);
+
+const MetricsStrip = dynamic(
+  () => import("@/components/home/MetricsStrip.js").then((mod) => mod.MetricsStrip),
+);
 
 export default async function HomePage() {
   const data = await getHomeContent();
@@ -28,33 +34,14 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section className="site-shell py-12 md:py-16">
-        <div className="hero-grid">
-          <div>
-            <p className="font-mono text-xs text-[var(--muted)]">{profile.location}</p>
-            <h1 className="font-display mt-3 text-4xl leading-tight md:text-5xl">
-              {profile.name}
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-[var(--text-secondary)]">
-              {profile.headline}
-            </p>
-            <p className="prose-block mt-4 text-sm text-[var(--text-secondary)]">
-              {profile.summary}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/work" className="button-primary">
-                View work
-              </Link>
-              <Link href="/playground" className="button-ghost">
-                Ask my work
-              </Link>
-            </div>
-          </div>
-          <NetworkHero />
+      <HeroShell>
+        <HeroCopy profile={profile} />
+        <div className="hero-canvas relative h-full min-h-[280px] overflow-hidden rounded-[var(--radius-panel)] border border-[var(--border)]">
+          <StaticGraph />
+          <DeferredNetworkHero overlay />
         </div>
-      </section>
-
-      <ProofStrip metrics={data.proofMetrics} />
+      </HeroShell>
+      <MetricsStrip metrics={data.proofMetrics} />
       <ProjectStrip projects={data.projects} />
       <ExperienceList items={data.experience} />
       <SkillKeyboard skillGroups={data.skillGroups} />

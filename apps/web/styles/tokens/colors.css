@@ -1,0 +1,88 @@
+/**
+ * Control Plane palette — dark theme is default (:root).
+ * Accent is steel blue-gray (not health green). Green/amber/red are semantic only.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --cp-void: #0a0c0f;
+  --cp-panel: #12161c;
+  --cp-elevated: #1a2028;
+  --cp-overlay: #222a34;
+
+  /* Text */
+  --cp-text: #e8eaed;
+  --cp-text-secondary: #a3acb8;
+  --cp-muted: #6f7885;
+
+  /* Brand / interactive (not health colors) */
+  --cp-accent: #8fa3b8;
+  --cp-accent-strong: #a8bacb;
+  --cp-accent-muted: #5c6d7e;
+
+  /* Semantic health states only */
+  --cp-state-ok: #6fa892;
+  --cp-state-warn: #d4a054;
+  --cp-state-critical: #cf5c4f;
+
+  --cp-border: rgba(163, 172, 184, 0.14);
+  --cp-border-strong: rgba(163, 172, 184, 0.28);
+  --cp-focus-ring: color-mix(in srgb, var(--cp-accent) 55%, transparent);
+
+  /* Legacy aliases (existing pages until Step 4 redesign) */
+  --background: var(--cp-void);
+  --foreground: var(--cp-text);
+  --ink: var(--cp-void);
+  --surface: var(--cp-panel);
+  --paper: #f4f1ea;
+  --text: var(--cp-text);
+  --text-secondary: var(--cp-text-secondary);
+  --muted: var(--cp-muted);
+  --link: var(--cp-accent);
+  --signal: var(--cp-state-warn);
+  --trace: var(--cp-state-ok);
+  --border: var(--cp-border);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Cool slate canvas — not warm cream (#F4F1EA banned pairing with Instrument Serif) */
+  --cp-void: #e9eef3;
+  --cp-panel: #ffffff;
+  --cp-elevated: #dde3ea;
+  --cp-overlay: #cfd6de;
+  /* TODO(launch): remove legacy swatch used only on /design before-after */
+  --cp-canvas-legacy-warm: #f4f1ea;
+
+  --cp-text: #1a1d22;
+  --cp-text-secondary: #454a52;
+  --cp-muted: #6b717a;
+
+  --cp-accent: #3d5568;
+  --cp-accent-strong: #2a3d4d;
+  --cp-accent-muted: #7a8794;
+
+  --cp-state-ok: #3d7a5c;
+  --cp-state-warn: #9a6b1f;
+  --cp-state-critical: #a94438;
+
+  --cp-border: rgba(26, 29, 34, 0.12);
+  --cp-border-strong: rgba(26, 29, 34, 0.22);
+  --cp-focus-ring: color-mix(in srgb, var(--cp-accent) 40%, transparent);
+
+  --background: var(--cp-void);
+  --foreground: var(--cp-text);
+  --ink: #1a1d22;
+  --surface: var(--cp-panel);
+  --paper: #e9eef3;
+  --text: var(--cp-text);
+  --text-secondary: var(--cp-text-secondary);
+  --muted: var(--cp-muted);
+  --link: var(--cp-accent);
+  --signal: var(--cp-state-warn);
+  --trace: var(--cp-state-ok);
+  --border: var(--cp-border);
+}

@@ -1,11 +1,11 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import dotenv from "dotenv";
+import dns from "node:dns";
+import { loadRootEnv } from "./src/config/load-root-env.js";
+
+// shortcut: Windows often times out on Supabase direct host AAAA; prefer IPv4
+dns.setDefaultResultOrder("ipv4first");
 import { defineConfig } from "drizzle-kit";
 
-// drizzle-kit cwd is apps/api; DATABASE_URL lives in monorepo root .env
-const here = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(here, "../../.env") });
+loadRootEnv(import.meta.url);
 
 export default defineConfig({
   schema: "./src/db/schema.ts",

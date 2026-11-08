@@ -1,11 +1,6 @@
-import "dotenv/config";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import dotenv from "dotenv";
+import { loadRootEnv } from "./config/load-root-env.js";
 
-// Load monorepo root .env when running from apps/api
-const here = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(here, "../../../.env") });
+loadRootEnv(import.meta.url);
 
 import Fastify from "fastify";
 import cors from "@fastify/cors";

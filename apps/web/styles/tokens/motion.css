@@ -1,0 +1,42 @@
+/**
+ * Shared motion tokens — durations, easings, stagger.
+ * Spring presets are mirrored in lib/motion-presets.js for Motion/react.
+ */
+
+:root {
+  --motion-duration-instant: 100ms;
+  --motion-duration-fast: 150ms;
+  --motion-duration-base: 250ms;
+  --motion-duration-slow: 400ms;
+  --motion-duration-drift: 650ms;
+  --motion-duration-intro-max: 1500ms;
+
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-in-out: cubic-bezier(0.45, 0, 0.2, 1);
+  --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --motion-stagger-tight: 40ms;
+  --motion-stagger-base: 60ms;
+  --motion-stagger-relaxed: 90ms;
+
+  /* Reference labels for spring presets (actual springs use JS) */
+  --motion-spring-snappy-duration: 0.3s;
+  --motion-spring-snappy-bounce: 0.15;
+  --motion-spring-panel-duration: 0.45s;
+  --motion-spring-panel-bounce: 0.2;
+  --motion-spring-drift-duration: 0.6s;
+  --motion-spring-drift-bounce: 0.12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-instant: 0ms;
+    --motion-duration-fast: 0ms;
+    --motion-duration-base: 0ms;
+    --motion-duration-slow: 0ms;
+    --motion-duration-drift: 0ms;
+    --motion-stagger-tight: 0ms;
+    --motion-stagger-base: 0ms;
+    --motion-stagger-relaxed: 0ms;
+  }
+}

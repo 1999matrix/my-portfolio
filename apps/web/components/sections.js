@@ -3,7 +3,7 @@ import Link from "next/link";
 export function ExperienceList({ items }) {
   return (
     <section className="site-shell py-16" aria-labelledby="experience-heading">
-      <h2 id="experience-heading" className="font-display text-2xl">
+      <h2 id="experience-heading" className="font-ui text-2xl">
         Experience
       </h2>
       <ul className="mt-10 flex flex-col gap-10">
@@ -35,7 +35,7 @@ export function ProjectStrip({ projects }) {
   return (
     <section className="site-shell py-16" aria-labelledby="work-heading">
       <div className="flex items-end justify-between gap-4">
-        <h2 id="work-heading" className="font-display text-2xl">
+        <h2 id="work-heading" className="font-ui text-2xl">
           Selected work
         </h2>
         <Link href="/work" className="text-sm nav-link">
