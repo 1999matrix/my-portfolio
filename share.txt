@@ -1,1 +1,26 @@
 https://clerk.tinyfish.ai/v1/verify?__clerk_api_version=2026-08-20&_clerk_js_version=6.41.0&token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTQxNDU2NzEsImlpZCI6Imluc18zMHBtbkFZSW9iWXp3azJuOVpicDNubzA1QUsiLCJydXJsIjoiaHR0cHM6Ly9hZ2VudC50aW55ZmlzaC5haS9zaWduLWluL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRmFnZW50LnRpbnlmaXNoLmFpJTJGb25ib2FyZGluZ1x1MDAyNnNpZ25faW5fZmFsbGJhY2tfcmVkaXJlY3RfdXJsPWh0dHBzJTNBJTJGJTJGYWdlbnQudGlueWZpc2guYWklMkZob21lIiwic2lkIjoic2lhXzNMcEpScWdRbW10eU9JOVhNN1doZWZTS29aYSIsInN0Ijoic2lnbl9pbl9hdHRlbXB0IiwidmlkIjoidmVyXzNMcEpTMFBHVUJBMDE5dGNiUXFuMGVXckREbSJ9.Yay4-ppJqRLxUMmU-EE5QCx3CYr-NpHVSOnCCEyLBB9Ip6xv_Ky81G4ge49C7mbk9gZdtnXhyzqvVUpOvg2MIZWrkdMZLsE61_sVEac_Uz2aWsa63ay3RWARW7tGNKbmm84v8JIUQ_hztA9UXLrayidvpm7Gu5qpPFQWnJyhJ-57yG8KskMlqWikpruOm7A86bEauZajK7IXVpy_AkG05WyWAjnG8Qwr-q29a6gftQe4po2H-urogRJ4RiamN_da2Iwj_qloNH1H-yHyORjZpG375tCwLSK1UqZt6Odvyzgg1xdzSEo7ly2tU28qR7HRJ8OlI9e4V7HlgAnIoOA5Ow
+
+
+# Supabase: Project Settings → Database → Connection string (URI)
+# Use the "Transaction" pooler for serverless, or direct for migrations.
+# DATABASE_URL=postgresql://postgres:%23Admin%4012345%28%29@db.dubsiwxlyvijostbjxcp.supabase.co:5432/postgres
+DATABASE_URL=postgresql://postgres.dubsiwxlyvijostbjxcp:%23Admin%4012345%28%29@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres
+
+SUPABASE_URL=https://dubsiwxlyvijostbjxcp.supabase.co
+
+API_PORT=4000
+API_HOST=0.0.0.0
+WEB_URL=http://localhost:3000
+CORS_ORIGIN=http://localhost:3000
+
+# Public (safe in Next.js)
+NEXT_PUBLIC_API_URL=http://localhost:4000
+
+REDIS_URL=redis://localhost:16379
+
+# Admin (set after first deploy)
+ADMIN_EMAIL=techshashwat5@gmail.com
+ADMIN_PASSWORD=
+SESSION_SECRET=change-me-to-a-long-random-string
+
+REVALIDATE_SECRET=
