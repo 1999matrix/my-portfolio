@@ -24,3 +24,486 @@ ADMIN_PASSWORD=
 SESSION_SECRET=change-me-to-a-long-random-string
 
 REVALIDATE_SECRET=
+
+
+
+ Docker Mastery: FAANG-Level Course
+
+  Target: Senior backend engineer | ~8–10 weeks | Hands-on heavy
+
+  ---
+  Module 1 — Internals First (Week 1)
+
+  Most devs skip this. FAANG interviewers don't.
+
+  - Linux primitives Docker is built on: namespaces (pid, net, mnt, uts,
+  ipc), cgroups v1 vs v2, union filesystems (OverlayFS)
+  - Container vs VM: what's actually shared (kernel), what's isolated
+  - Docker architecture: daemon (dockerd), containerd, runc, shim — the full
+  call chain
+  - The OCI spec: image spec, runtime spec — understand why Docker isn't the
+  only runtime
+
+  Lab: Run a container manually using unshare + chroot before ever using
+  Docker CLI.
+
+  ---
+  Module 2 — Images Done Right (Week 2)
+
+  Where most production bugs originate.
+
+  - Dockerfile instruction semantics: COPY vs ADD, CMD vs ENTRYPOINT, ARG vs
+  ENV
+  - Layer caching mechanics: how the cache is invalidated, optimizing layer
+  order
+  - Multi-stage builds: separate build/runtime environments, minimize attack
+  surface
+  - Distroless & scratch images: when to use, tradeoffs
+  - Image size optimization: --no-cache, .dockerignore, squashing layers
+  - BuildKit: parallel stages, cache mounts, secret mounts
+  (--mount=type=secret)
+
+  Lab: Take a Node.js/Go/Java app from 1GB image → under 50MB using
+  multi-stage + distroless.
+
+  ---
+  Module 3 — Networking Deep Dive (Week 3)
+
+  Critical for microservices and distributed systems.
+
+  - Network driver types: bridge, host, overlay, macvlan, ipvlan, none
+  - Default bridge vs user-defined bridge: why you always use user-defined
+  - DNS resolution inside containers: embedded DNS server at 127.0.0.11
+  - Container-to-container communication: same network, cross-network
+  - Port publishing internals: iptables rules Docker writes, --network=host
+  tradeoffs
+  - Overlay networks: VXLAN encapsulation, when this matters (Swarm/K8s)
+
+  Lab: Build a 3-service app (API + DB + cache) with zero hardcoded IPs,
+  only DNS names.
+
+  ---
+  Module 4 — Storage & Volumes (Week 3–4)
+
+  - Volume vs bind mount vs tmpfs: when each is appropriate
+  - Volume drivers: local, NFS, cloud-backed (EBS, GCS)
+  - Data persistence patterns: init containers, volume initialization
+  - Backup/restore strategies for stateful containers
+  - Copy-on-write filesystem behavior: performance implications for
+  write-heavy workloads
+
+  ---
+  Module 5 — Docker Compose for Real Systems (Week 4)
+
+  Not just local dev — production-grade patterns.
+
+  - Compose file structure: services, networks, volumes, configs, secrets
+  - Dependency ordering: depends_on with condition: service_healthy
+  - Health checks: writing meaningful HEALTHCHECK instructions
+  - Environment management: .env files, variable substitution, override
+  files
+  - Compose profiles: selective service startup
+  - docker compose watch: file sync for dev loops
+
+  Lab: Build a full microservices stack (3+ services) with health checks,
+  proper network segmentation, and secrets management.
+
+  ---
+  Module 6 — Security (Week 5)
+
+  This is where FAANG separates candidates.
+
+  - Running as non-root: USER instruction, --user flag, implications
+  - Read-only filesystems: --read-only, tmpfs for writable paths
+  - Capabilities: drop all, add back only what's needed (--cap-drop ALL
+  --cap-add NET_BIND_SERVICE)
+  - Seccomp profiles: default profile, custom profiles, syscall filtering
+  - AppArmor/SELinux: container MAC enforcement
+  - Image scanning: Trivy, Snyk, Grype — integrate into CI
+  - Supply chain security: image signing (Cosign/Notary), SBOM generation
+  - Secrets management: never bake secrets into images, Docker secrets,
+  Vault integration
+
+  Lab: Audit an insecure Dockerfile, harden it to CIS Docker Benchmark
+  standards.
+
+  ---
+  Module 7 — Performance & Observability (Week 6)
+
+  - Resource limits: --memory, --cpus, --pids-limit — cgroup enforcement
+  - OOM behavior: which process gets killed, --oom-score-adj
+  - docker stats internals: what the metrics mean, how they're collected
+  - cAdvisor + Prometheus: container metrics pipeline
+  - Structured logging: log drivers (json-file, fluentd, awslogs), log
+  rotation
+  - Tracing: propagating trace context across container boundaries
+
+  ---
+  Module 8 — CI/CD Integration (Week 7)
+
+  - Building images in CI: GitHub Actions, GitLab CI patterns
+  - Registry management: Docker Hub, ECR, GCR, Harbor (private)
+  - Tagging strategies: latest is an anti-pattern, use git SHA + semantic
+  tags
+  - BuildKit remote caching: --cache-from, --cache-to with registry
+  - Multi-platform builds: docker buildx, QEMU, building linux/amd64 +
+  linux/arm64
+  - Image promotion pipelines: build once, promote through environments
+
+  ---
+  Module 9 — Production Patterns & the K8s Bridge (Week 8)
+
+  Docker → Kubernetes mental model.
+
+  - Twelve-factor app in containers: config via env, stateless processes,
+  disposability
+  - Init systems in containers: PID 1 problem, tini, dumb-init, why it
+  matters for signal handling
+  - Graceful shutdown: SIGTERM handling, docker stop timeout
+  - Docker Swarm (fast): understand it exists, why most teams choose K8s
+  instead
+  - Container to Pod mental model: how Docker concepts map to K8s (container
+  → pod, compose → deployment, network → service, volume → PVC)
+  - CRI (Container Runtime Interface): why K8s doesn't need Docker directly
+  (containerd/CRI-O)
+
+  ---
+  What FAANG Actually Cares About in Interviews
+
+  ┌────────────────────────────┬────────────────────────────────────────┐
+  │           Topic            │             Depth Expected             │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Namespaces & cgroups       │ Explain from first principles          │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Multi-stage builds         │ Write one on a whiteboard              │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Networking                 │ Explain DNS resolution flow            │
+  │ (bridge/overlay)           │                                        │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Security hardening         │ Know CIS benchmark categories          │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Image layer caching        │ Debug a slow build                     │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Signal handling (PID 1)    │ Explain the zombie process problem     │
+  ├────────────────────────────┼────────────────────────────────────────┤
+  │ Container vs VM tradeoffs  │ Kernel sharing, startup time,          │
+  │                            │ isolation                              │
+  └────────────────────────────┴────────────────────────────────────────┘
+
+  ---
+  Recommended Resources
+
+  - Book: Docker Deep Dive — Nigel Poulton (fast read, solid foundation)
+  - Book: Container Security — Liz Rice (O'Reilly) — for Module 6
+  - Hands-on: Play with Docker (https://labs.play-with-docker.com/) — free
+  browser lab
+  - Practice: KodeKloud Docker course — scenario-based labs
+  - Reference: Docker official docs (https://docs.docker.com) — always
+  current
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug
+  is worthless at this level. By Week 8 you should be able to debug a production
+  container issue from first principles without Googling the basics.
+
+  is worthless at this level. By Week 8 you should be able to debug a production
+  container issue from first principles without Googling the basics.
+
+  - Book: Container Security — Liz Rice (O'Reilly) — for Module 6
+  - Hands-on: Play with Docker (https://labs.play-with-docker.com/) — free
+  browser lab
+  - Practice: KodeKloud Docker course — scenario-based labs
+  - Reference: Docker official docs (https://docs.docker.com) — always
+  current
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug
+  a production container issue from first principles without Googling the
+  basics.
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles
+  without Googling the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat
+  this level. By Week 8 you should be able to debug a production container issue from first
+  principles without Googling the basics.
+
+✻ Churned for 39s
+
+※ recap: Designed an 8-week FAANG-level Docker course tailored for a 2+ year backend developer,
+  covering internals through production patterns. Next: start Module 1 b
+  - Running as non-root: USER
+  instruction, --user flag,
+  implications
+  - Read-only filesystems:
+  --read-only, tmpfs for writable
+  paths
+  - Capabilities: drop all, add back
+  only what's needed (--cap-drop
+  ALL --cap-add NET_BIND_SERVICE)
+  - Seccomp profiles: default
+  profile, custom profiles, syscall
+  filtering
+  - AppArmor/SELinux: container MAC
+  enforcement
+  - Image scanning: Trivy, Snyk,
+  Grype — integrate into CI
+  - Supply chain security: image
+  signing (Cosign/Notary), SBOM
+  generation
+  - Secrets management: never bake
+  secrets into images, Docker
+  secrets, Vault integration
+
+  Lab: Audit an insecure Dockerfile,
+  harden it to CIS Docker Benchmark
+  standards.
+
+  ---
+  Module 7 — Performance &
+  Observability (Week 6)
+
+  - Resource limits: --memory,
+  --cpus, --pids-limit — cgroup
+  enforcement
+  - OOM behavior: which process gets
+  killed, --oom-score-adj
+  - docker stats internals: what the
+  metrics mean, how they're
+  collected
+  - cAdvisor + Prometheus: container
+  metrics pipeline
+  - Structured logging: log drivers
+  (json-file, fluentd, awslogs), log
+  rotation
+  - Tracing: propagating trace
+  context across container
+  boundaries
+
+  ---
+  Module 8 — CI/CD Integration (Week
+  7)
+
+  - Building images in CI: GitHub
+  Actions, GitLab CI patterns
+  - Registry management: Docker Hub,
+  ECR, GCR, Harbor (private)
+  - Tagging strategies: latest is an
+  anti-pattern, use git SHA +
+  semantic tags
+  - BuildKit remote caching:
+  --cache-from, --cache-to with
+  registry
+  - Multi-platform builds: docker
+  buildx, QEMU, building linux/amd64
+  + linux/arm64
+  - Image promotion pipelines: build
+  once, promote through
+  environments
+
+  ---
+  Module 9 — Production Patterns &
+  the K8s Bridge (Week 8)
+
+  Docker → Kubernetes mental model.
+
+  - Twelve-factor app in containers:
+  config via env, stateless
+  processes, disposability
+  - Init systems in containers: PID
+  1 problem, tini, dumb-init, why it
+  matters for signal handling
+  - Graceful shutdown: SIGTERM
+  handling, docker stop timeout
+  - Docker Swarm (fast): understand
+  it exists, why most teams choose
+  K8s instead
+  - Container to Pod mental model:
+  how Docker concepts map to K8s
+  (container → pod, compose →
+  deployment, network → service,
+  volume → PVC)
+  - CRI (Container Runtime
+  Interface): why K8s doesn't need
+  Docker directly (containerd/CRI-O)
+
+  ---
+  What FAANG Actually Cares About in
+  Interviews
+
+  Topic: Namespaces & cgroups
+  Depth Expected: Explain from first
+
+  principles
+  ──────────────────────────────────
+  ─
+  Topic: Multi-stage builds
+  Depth Expected: Write one on a
+  whiteboard
+  ──────────────────────────────────
+  ─
+  Topic: Networking (bridge/overlay)
+  Depth Expected: Explain DNS
+  resolution flow
+  ──────────────────────────────────
+  ─
+  Topic: Security hardening
+  Depth Expected: Know CIS benchmark
+
+  categories
+  ──────────────────────────────────
+  ─
+  Topic: Image layer caching
+  Depth Expected: Debug a slow build
+  ──────────────────────────────────
+  ─
+  Topic: Signal handling (PID 1)
+  Depth Expected: Explain the zombie
+
+  process problem
+  ──────────────────────────────────
+  ─
+  Topic: Container vs VM tradeoffs
+  Depth Expected: Kernel sharing,
+  startup time, isolation
+
+  ---
+  Recommended Resources
+
+  - Book: Docker Deep Dive — Nigel
+  Poulton (fast read, solid
+  foundation)
+  - Book: Container Security — Liz
+  Rice (O'Reilly) — for Module 6
+  - Hands-on: Play with Docker (http
+  s://labs.play-with-docker.com/) —
+  free browser lab
+  - Practice: KodeKloud Docker
+  course — scenario-based labs
+  - Reference: Docker official docs
+  (https://docs.docker.com) — always
+  current
+
+  ---
+  Suggested pace: 1 module/week, but
+  don't skip the labs. Reading
+  without building is worthless at
+  this level. By Week 8 you should
+  be able to debug a production
+  container issue from first
+  principles without Googling the
+  basics.
+
+✻ Churned for 39s
+
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat
+  this level. By Week 8 you should be able to debug a production container issue from first
+  principles without Googling the basics.
+
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  worthless at this level. By Week 8 you should be able to debug a production container issue
+  from first principles without Googling the basics.
+
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  worthless at this level. By Week 8 you should be able to debug a production container issue
+  from first principles without Googling the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  worthless at this level. By Week 8 you should be able to debug a production container
+  issue from first principles without Googling the basics.
+
+  worthless at this level. By Week 8 you should be able to debug a production container
+  issue from first principles without Googling the basics.
+  worthless at this level. By Week 8 you should be able to debug a production container
+  issue from first principles without Googling the basics.
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  worthless at this level. By Week 8 you should be able to debug a production container
+  issue from first principles without Googling the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  worthless at this level. By Week 8 you should be able to debug a production container
+  issue from first principles without Googling the basics.
+
+✻ Churned for 39s
+
+
+  - Book: Docker Deep Dive — Nigel Poulton (fast read, solid foundation)
+  - Book: Container Security — Liz Rice (O'Reilly) — for Module 6
+  - Hands-on: Play with Docker (https://labs.play-with-docker.com/) — free
+  browser lab
+  - Practice: KodeKloud Docker course — scenario-based labs
+  - Reference: Docker official docs (https://docs.docker.com) — always current
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug a
+  production container issue from first principles without Googling the basics.
+
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug a
+  production container issue from first principles without Googling the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug a
+  production container issue from first principles without Googling the
+  basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to debug
+  a production container issue from first principles without Googling the
+  basics.
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to
+  debug a production container issue from first principles without Googling
+  the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without
+  building is worthless at this level. By Week 8 you should be able to
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this level.
+  By Week 8 you should be able to debug a production container issue from first principles without Googling
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles without
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles without
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles without
+  Googling the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles
+  without Googling the basics.
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles
+  without Googling the basics.
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthless
+  at this level. By Week 8 you should be able to debug a production container issue from first
+  principles without Googling the basics.
+
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  worthless at this level. By Week 8 you should be able to debug a production container issue
+  from first principles without Googling the basics.
+
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat this
+  level. By Week 8 you should be able to debug a production container issue from first principles without
+  Googling the basics.
+
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthlessat
+  this level. By Week 8 you should be able to debug a production container issue from first
+  ---
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthless
+  at this level. By Week 8 you should be able to debug a production container issue from first
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthless
+  at this level. By Week 8 you should be able to debug a production container issue from first
+  Suggested pace: 1 module/week, but don't skip the labs. Reading without building is worthless
+  at this level. By Week 8 you should be able to debug a production container issue from first
+  principles without Googling the basics.
